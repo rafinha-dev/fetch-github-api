@@ -1,5 +1,7 @@
-import { repos } from "./services/repositories"
-import { user } from "./services/user"
+import { getRepositories } from "./services/repositories"
+import { getUser } from "./services/user"
+import { user } from "./objects/user"
+
 
 document.getElementById('btn-search').addEventListener('click', () =>{
     const userName = document.getElementById('input-search').value
@@ -24,7 +26,7 @@ document.getElementById('input-search').addEventListener('keyup', (e) =>{
 // await tirou o estado de pending
 
 function getUserProfile(userName){
-    user(userName).then((userData) => {
+    getUser(userName).then((userData) => {
         // será preciso o avatar, o name e a bio.
         let userInfo = `
         <div class="info">
@@ -42,7 +44,7 @@ function getUserProfile(userName){
 }
 
 function getUserRepositories(userName){
-    repos(userName).then(reposData => {
+    getRepositories(userName).then(reposData => {
         let repositoriesItems = ""
             reposData.forEach(repo => {
                     repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`
