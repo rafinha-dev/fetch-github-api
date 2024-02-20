@@ -30,13 +30,18 @@ async function repos(userName){
 function getUserProfile(userName){
     user(userName).then((userData) => {
         // será preciso o avatar, o name e a bio.
-        let userInfo = `<img src="${userData.avatar_url}" alt="foto do perfil" />
-        <div class="data">
-            <h1>${userData.name ?? 'Não possui nome cadastrado '}</h1>
-            <p>${userData.bio ?? 'Não possui bio cadastrada'}</p>
+        let userInfo = `
+        <div class="info">
+            <img src="${userData.avatar_url}" alt="foto do perfil" />
+            <div class="data">
+                <h1>${userData.name ?? 'Não possui nome cadastrado '}</h1>
+                <p>${userData.bio ?? 'Não possui bio cadastrada'}</p>
+            </div>
         </div>`
 
         document.querySelector('.profile-data').innerHTML = userInfo
+
+        getUserRepositories(userName)
     })
 }
 
@@ -44,10 +49,14 @@ function getUserRepositories(userName){
     repos(userName).then(reposData => {
         let repositoriesItems = ""
             reposData.forEach(repo => {
-                    repositoriesItems += `<li><a href="${repo.html_url}">${repo.name}</a></li>`
+                    repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`
                 })
 
-                console.log(repositoriesItems)
+                document.querySelector('.profile-data').innerHTML += `
+                                                                        <div class="repositories section">
+                                                                            <h2>Repositórios</h2>
+                                                                            <ul>${repositoriesItems}</ul>
+                                                                        </div>`
+
             })
 }
-getUserRepositories('rafinha-dev')
