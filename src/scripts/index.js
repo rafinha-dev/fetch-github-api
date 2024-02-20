@@ -16,36 +16,36 @@ document.getElementById('input-search').addEventListener('keyup', (e) =>{
     const isEnterKeyPressed = key === 13
 
     if(isEnterKeyPressed){
-        getUserProfile(userName)
+        getUserData(userName)
     }
 })
 // console.log( await user())
 // await tirou o estado de pending
 
-async function getUserProfile(userName){
+async function getUserData(userName){
+
     const userResponse = await getUser(userName)
+    const repositoriesResponse = await getRepositories(userName)
+    // getUser(userName).then((userData) => {
         
     user.setInfo(userResponse)
-    console.log(user)
-    // getUser(userName).then((userData) => {
-
+    user.setRepositories(repositoriesResponse)
     screen.renderUser(user)
-    //     getUserRepositories(userName)
-    // })
+ 
 }
 
-function getUserRepositories(userName){
-    getRepositories(userName).then(reposData => {
-        let repositoriesItems = ""
-            reposData.forEach(repo => {
-                    repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`
-                })
+// function getUserRepositories(userName){
+//     getRepositories(userName).then(reposData => {
+//         let repositoriesItems = ""
+//             reposData.forEach(repo => {
+//                     repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`
+//                 })
 
-                document.querySelector('.profile-data').innerHTML += `
-                                                                        <div class="repositories section">
-                                                                            <h2>Repositórios</h2>
-                                                                            <ul>${repositoriesItems}</ul>
-                                                                        </div>`
+//                 document.querySelector('.profile-data').innerHTML += `
+//                                                                         <div class="repositories section">
+//                                                                             <h2>Repositórios</h2>
+//                                                                             <ul>${repositoriesItems}</ul>
+//                                                                         </div>`
 
-            })
-}
+//             })
+// }

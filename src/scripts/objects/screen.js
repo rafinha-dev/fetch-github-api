@@ -9,6 +9,19 @@ const screen = {
                 <p>${user.bio ?? 'Não possui bio cadastrada'}</p>
             </div>
         </div>`
+
+        let repositoriesItems = ""
+        user.repositories.forEach(repo  =>  {
+            repositoriesItems += `<li><a href="${repo.html_url}" target+"_blank">${repo.name}</a></li>`
+            console.log(repositoriesItems)
+
+        if(user.repositories.lenght > 0){
+            this.userProfile.innerHTML += `<div class="repositories section">
+                                            <h2> Repositórios </h2>
+                                            <ul>${repositoriesItems}</ul>
+                                            </div>`
+        }
+        });
     }
 }
 export{screen}
