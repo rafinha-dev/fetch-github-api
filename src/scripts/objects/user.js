@@ -1,4 +1,3 @@
-
 const user = { 
     avatarUrl: '',
     avatarName: '',
