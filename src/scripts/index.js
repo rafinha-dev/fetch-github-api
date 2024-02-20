@@ -1,5 +1,11 @@
-async function user(userNeme){
-    const response = await fetch(`https://api.github.com/users/${userNeme}`)
+document.getElementById('btn-search').addEventListener('click', () =>{
+    const userName = document.getElementById('input-search').value
+    getUserProfile(userName)
+
+})
+
+async function user(userName){
+    const response = await fetch(`https://api.github.com/users/${userName}`)
     return await response.json()
 }
 
@@ -19,5 +25,3 @@ function getUserProfile(userName){
         document.querySelector('.profile-data').innerHTML = userInfo
     })
 }
-
-getUserProfile('dev-rafinha')
